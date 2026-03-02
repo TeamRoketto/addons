@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<addons><addon id="plugin.video.encore" name="TVBAnywhere North America" version="1.0.0" provider-name="Team Roketto">
+	<requires>
+		<import addon="script.module.beautifulsoup4" />
+		<import addon="script.module.django" />
+		<import addon="script.module.requests-cache" />
+		<import addon="script.module.yt-dlp" />
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Watch Hong Kong dramas, news, and variety shows for free on TVBAnywhere</summary>
+		<description lang="en_GB">Unleash a World of Premium Chinese &amp; Asian Entertainment with TVBAnywhere North America - the ultimate destination for TVB fans! Discover the best in Asian entertainment with TVBAnywhere North America, the ultimate streaming app for fans of TVB dramas, variety shows, and news programs. With an extensive library of content, you can immerse yourself in the world of authentic Hong Kong-style entertainment and stay up-to-date with the TVB latest shows, anytime, anywhere.</description>
+		<platform>all</platform>
+		<license>MIT License</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.django" name="Django" version="4.2.16" provider-name="Team Roketto">
+	<requires>
+		<import addon="script.module.asgiref" />
+		<import addon="script.module.backports.zoneinfo" />
+		<import addon="script.module.sqlparse" />
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/django" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">A high-level Python web framework that encourages rapid development and clean, pragmatic design</summary>
+		<description lang="en_GB">Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.</description>
+		<platform>all</platform>
+		<license>BSD 3-Clause License</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.asgiref" name="asgiref" version="3.8.1" provider-name="Team Roketto">
+	<requires>
+		<import addon="script.module.typing-extensions" />
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/asgiref" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">ASGI specs, helper code, and adapters</summary>
+		<description lang="en_GB">ASGI (Asynchronous Server Gateway Interface) is a spiritual successor to WSGI, intended to provide a standard interface between async-capable Python web servers, frameworks, and applications. Where WSGI provided a standard for synchronous Python apps, ASGI provides one for both asynchronous and synchronous apps, with a WSGI backwards-compatibility implementation and multiple servers and application frameworks.</description>
+		<platform>all</platform>
+		<license>BSD 3-Clause License</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.yt-dlp" name="yt-dlp" version="2024.8.6" provider-name="Team Roketto">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/yt-dlp" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">A feature-rich command-line audio/video downloader</summary>
+		<description lang="en_GB">yt-dlp is a feature-rich command-line audio/video downloader with support for thousands of sites. The project is a fork of youtube-dl based on the now inactive youtube-dlc.</description>
+		<platform>all</platform>
+		<license>The Unlicense</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="repository.roketto" name="Roketto Add-on repository" version="1.0.0" provider-name="Team Roketto">
+	<extension point="xbmc.addon.repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/TeamRoketto/addons/main/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/TeamRoketto/addons/main/addons.xml.md5</checksum>
+			<datadir>https://raw.githubusercontent.com/TeamRoketto/addons/main/</datadir>
+			<hashes>false</hashes>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+			<datadir>https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+			<hashes>false</hashes>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Install Add-ons from Roketto</summary>
+		<description lang="en_GB">Download and install add-ons from the Official Roketto add-on repository.</description>
+		<platform>all</platform>
+		<license>MIT License</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.sqlparse" name="sqlparse" version="0.5.1" provider-name="Team Roketto">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/sqlparse" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">A non-validating SQL parser</summary>
+		<description lang="en_GB">The sqlparse module provides three simple functions on module level to achieve some common tasks when working with SQL statements.</description>
+		<platform>all</platform>
+		<license>BSD 3-Clause License</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon><addon id="script.module.typing-extensions" name="Typing Extensions" version="4.12.2" provider-name="Team Roketto">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/typing_extensions/src" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Backported and Experimental Type Hints for Python 3.8+</summary>
+		<description lang="en_GB">typing_extensions complements the standard-library typing module, providing runtime support for type hints as specified by PEP 484 and subsequent PEPs.</description>
+		<platform>all</platform>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon></addons>
