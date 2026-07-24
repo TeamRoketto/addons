@@ -1,0 +1,97 @@
+name: Repository
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GIT_CLONE_PROTECTION_ACTIVE: false
+  PATCH: |
+    --- a/create_repository.py	2024-09-17 17:06:24.203188503 +0200
+    +++ b/create_repository.py	2024-09-18 20:49:18.465332365 +0200
+    @@ -56,0 +57 @@
+    +import airium
+    @@ -58,0 +60,2 @@
+    +import git_archive_all
+    +import glob
+    @@ -68,0 +72 @@
+    +import urllib.parse
+    @@ -198,0 +203,3 @@
+    +        url = urllib.parse.urlsplit(clone_repo)
+    +        netloc = f'{os.environ["GH_TOKEN"]}@{url.netloc}'
+    +        clone_repo = urllib.parse.urlunsplit((url.scheme, netloc, url.path, url.query, url.fragment))
+    @@ -200,3 +207,5 @@
+    -        cloned = git.Repo.clone_from(clone_repo, clone_folder)
+    -        if clone_branch is not None:
+    -            cloned.git.checkout(clone_branch)
+    +        cloned = git.Repo.clone_from(clone_repo, clone_folder, recursive=True)
+    +        if not cloned.tags:
+    +            return
+    +        clone_branch = sorted(cloned.tags, key=lambda tag: tag.commit.committed_date).pop().name
+    +        cloned.git.checkout(clone_branch, force=True)
+    @@ -214,6 +223 @@
+    -        with open(archive_path, 'wb') as archive:
+    -            cloned.archive(
+    -                archive,
+    -                treeish='HEAD:{}'.format(clone_path),
+    -                prefix=get_posix_path(os.path.join(addon_metadata.id, '')),
+    -                format='zip')
+    +        git_archive_all.main([None, '-C', clone_source_folder, archive_path])
+    @@ -224,0 +229,15 @@
+    +        doc = airium.Airium('')
+    +        with doc.html():
+    +            with doc.head():
+    +                doc.title(_t=f'Index of /addons/{addon_metadata.id}/')
+    +            with doc.body():
+    +                doc.h1(_t=f'Index of /addons/{addon_metadata.id}/')
+    +                doc.hr()
+    +                with doc.pre():
+    +                    for href in ['../', get_archive_basename(addon_metadata)]:
+    +                        doc.break_source_line()
+    +                        doc.a(href=href, _t=href)
+    +                    doc.break_source_line()
+    +                doc.hr()
+    +        with io.open(os.path.join(addon_target_folder, 'index.html'), 'w') as index:
+    +            index.write(str(doc))
+    @@ -389 +408,2 @@
+    -            metadata.append(result.addon_metadata)
+    +            if result.addon_metadata:
+    +                metadata.append(result.addon_metadata)
+    @@ -390,0 +411,15 @@
+    +    doc = airium.Airium('')
+    +    with doc.html():
+    +        with doc.head():
+    +            doc.title(_t=f'Index of /addons/')
+    +        with doc.body():
+    +            doc.h1(_t=f'Index of /addons/')
+    +            doc.hr()
+    +            with doc.pre():
+    +                for href in sorted(glob.glob('*/')):
+    +                    doc.break_source_line()
+    +                    doc.a(href=href, _t=href)
+    +                doc.break_source_line()
+    +            doc.hr()
+    +    with io.open(os.path.join(target_folder, 'index.html'), 'w') as index:
+    +        index.write(str(doc))
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    name: Generate
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install airium git-archive-all gitpython
+      - run: wget -P $RUNNER_TEMP https://raw.githubusercontent.com/chadparry/kodi-repository.chad.parry.org/master/tools/create_repository.py
+      - run: chmod +x $RUNNER_TEMP/create_repository.py
+      - run: echo "$PATCH" | patch $RUNNER_TEMP/create_repository.py -i -
+      - run: rm -rf *
+      - run: $RUNNER_TEMP/create_repository.py $(gh api /orgs/$GITHUB_REPOSITORY_OWNER/repos | jq -r '[.[].clone_url] | map(select(. | test("(repository|plugin|script|skin|resource)\\.((audio|video|picture|program|weather|module|service)\\.)?.+"))) | join(" ")')
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: git add .
+      - run: git commit --amend --reset-author --no-edit
+      - run: git push -f
