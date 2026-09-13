@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.playwright" name="Playwright" version="1.60.0" provider-name="Team Roketto">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="resources/lib/playwright-python" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Fast and reliable end-to-end testing for modern web apps</summary>
+		<description lang="en_GB">Web automation and testing for apps, scripts, and AI agents.</description>
+		<platform>all</platform>
+		<license>Apache License 2.0</license>
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
+	</extension>
+</addon>
